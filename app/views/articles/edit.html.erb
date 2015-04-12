@@ -1,0 +1,41 @@
+<h2>Edit the article!</h2>
+<%= form_for :article ,url: article_path(@article) ,method: :patch do |f| %>
+    <% if @article.errors.any? %>
+    <div id="error_explanation">
+	    <h2><%= pluralize(@article.errors.count, "error") %> prohibited
+	      this article from being saved:</h2>
+	    <ul>
+	    <% @article.errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+	    </ul>
+	  </div>
+    <% end %>
+
+	<p>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :text %>
+		<%= f.text_field :text %>
+	</p>
+
+	<p>
+		<%= f.select(:category) do %>
+			<%= options_for_select([['码农', 'coder'], ['行者', 'walker']], @article.category) %>
+		<% end %>
+	</p>
+
+	<p>
+		<%= f.label :tag_list %>
+		<%= f.text_field :tag_list %>
+	</p>
+
+
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>
+
+ <%= link_to 'Back',article_path %>
